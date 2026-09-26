@@ -1,8 +1,6 @@
 <div align="center">
 
 <pre align="center">
-  
-```text
   █████╗ ███████╗██████╗ ██╗██████╗ ███████╗
  ██╔══██╗██╔════╝██╔══██╗██║██╔══██╗██╔════╝
  ███████║███████╗██████╔╝██║██████╔╝█████╗  
@@ -14,17 +12,27 @@
         Intelligent Risk Evaluation         
  ───────────────────────────────────────────
 
-             ______ ______
-           _/      Y      \_
-          // ~~ ~~ | ~~ ~  \\
-         // ~ ~ ~~ | ~~~~ ~~ \\
-        //________.|.________\\
-       `----------`-'----------'
-```
+    [===|===|===]   |[_]|[_]|   [===|===|===]
+    | R | M | L |   |   |   |   | P | R | C |
+    |===|===|===|   |===|===|   |===|===|===|
+    |###|###|###|   |   |   |   |###|###|###|
+   ===========================================
+                      _____ _____
+                    /_____/_____/\
+                   /     /     /  \
+                  /_____/_____/ /\ \
+                 /__/__/__/__/ /  \ \
+                 \__\__\__\__\/    \ \
+                  \  \ \ \ \  \     \/
+                   \__\_\_\_\__\
+   ===========================================
 </pre>
+
 <p align="center">
   <b>An end-to-end predictive machine learning framework developed in R to shift institutional advising from post-exam grading to proactive, early-term intervention.</b>
 </p>
+
+</div>
 
 [![R](https://img.shields.io/badge/Language-R%20%3E%3D%204.2-276DC3?style=for-the-badge&logo=r&logoColor=white)](#)
 [![Machine Learning](https://img.shields.io/badge/ML-Random%20Forest%20%7C%20CART%20%7C%20GLM-0b112c?style=for-the-badge)](#)
