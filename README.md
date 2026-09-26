@@ -1,13 +1,26 @@
 <div align="center">
 
-```text
-    ___     ____  ____  ____ ____     ___ 
-   /   |   / __/ / __ \/  _// __ \   /   |
-  / /| |  _\ \  / /_/ // / / /_/ /  / /| |
- / ___ | /___/ / ____// / / _, _/  / ___ |
-/_/  |_|      /_/   /___//_/ |_|  /_/  |_|
-  Academic Success Prediction through Intelligent Risk Evaluation
-```
+<div align="center">
+
+``
+  █████╗ ███████╗██████╗ ██╗██████╗ ███████╗
+ ██╔══██╗██╔════╝██╔══██╗██║██╔══██╗██╔════╝
+ ███████║███████╗██████╔╝██║██████╔╝█████╗  
+ ██╔══██║╚════██║██╔═══╝ ██║██╔══██╗██╔══╝  
+ ██║  ██║███████║██║     ██║██║  ██║███████╗
+ ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝
+ ───────────────────────────────────────────
+   Academic Success Prediction through 
+        Intelligent Risk Evaluation         
+ ───────────────────────────────────────────
+
+             ______ ______
+           _/      Y      \_
+          // ~~ ~~ | ~~ ~  \\
+         // ~ ~ ~~ | ~~~~ ~~ \\
+        //________.|.________\\
+       `----------`-'----------'
+'''
 
 <p align="center">
   <b>An end-to-end predictive machine learning framework developed in R to shift institutional advising from post-exam grading to proactive, early-term intervention.</b>
