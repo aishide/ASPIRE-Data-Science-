@@ -1,5 +1,7 @@
 <div align="center">
 
+<pre align="center">
+  
 ```text
   █████╗ ███████╗██████╗ ██╗██████╗ ███████╗
  ██╔══██╗██╔════╝██╔══██╗██║██╔══██╗██╔════╝
@@ -19,6 +21,7 @@
         //________.|.________\\
        `----------`-'----------'
 ```
+</pre>
 <p align="center">
   <b>An end-to-end predictive machine learning framework developed in R to shift institutional advising from post-exam grading to proactive, early-term intervention.</b>
 </p>
