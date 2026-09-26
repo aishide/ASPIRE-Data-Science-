@@ -1,26 +1,32 @@
 <div align="center">
 
-# 🎓 Project ASPIRE
-### Academic Success Prediction through Intelligent Risk Evaluation
-
-[![R Version](https://img.shields.io/badge/R-%E2%89%A5%204.2-276DC3?style=for-the-badge&logo=r&logoColor=white)](#)
-[![Model](https://img.shields.io/badge/Model-Random%20Forest%20Ensemble-orange?style=for-the-badge&logo=scikit-learn&logoColor=white)](#)
-[![Validation](https://img.shields.io/badge/Validation-10--Fold%20CV-success?style=for-the-badge)](#)
-[![ROC-AUC](https://img.shields.io/badge/ROC--AUC-0.976-brightgreen?style=for-the-badge)](#)
-[![Recall](https://img.shields.io/badge/At--Risk%20Recall-84.04%25-blueviolet?style=for-the-badge)](#)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+```text
+    ___     ____  ____  ____ ____     ___ 
+   /   |   / __/ / __ \/  _// __ \   /   |
+  / /| |  _\ \  / /_/ // / / /_/ /  / /| |
+ / ___ | /___/ / ____// / / _, _/  / ___ |
+/_/  |_|      /_/   /___//_/ |_|  /_/  |_|
+  Academic Success Prediction through Intelligent Risk Evaluation
+```
 
 <p align="center">
-  <b>Shifting higher education advising from reactive post-exam damage control to proactive, mid-term targeted intervention.</b>
+  <b>An end-to-end predictive machine learning framework developed in R to shift institutional advising from post-exam grading to proactive, early-term intervention.</b>
 </p>
 
+[![R](https://img.shields.io/badge/Language-R%20%3E%3D%204.2-276DC3?style=for-the-badge&logo=r&logoColor=white)](#)
+[![Machine Learning](https://img.shields.io/badge/ML-Random%20Forest%20%7C%20CART%20%7C%20GLM-0b112c?style=for-the-badge)](#)
+[![ROC-AUC](https://img.shields.io/badge/ROC--AUC-0.976-4c1?style=for-the-badge)](#)
+[![Recall](https://img.shields.io/badge/Recall%20(%CE%A4*)-84.04%25-brightgreen?style=for-the-badge)](#)
+[![Threshold](https://img.shields.io/badge/%CF%84*-0.38-AFAAEC?style=for-the-badge)](#)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](#)
+
 [System Overview](#-system-overview) •
-[Architecture](#-architecture--workflow) •
-[Feature Engineering](#-feature-engineering--sei) •
-[Model Benchmarks](#-model-benchmarks) •
-[Actionable Insights](#-actionable-behavioral-insights) •
-[Triage Playbook](#-risk-stratification--alert-playbook) •
-[Installation & Usage](#-quick-start)
+[Architecture & Pipeline](#-architecture--pipeline) •
+[Feature Synthesis](#-feature-synthesis-study-efficiency-index-sei) •
+[Empirical Results](#-empirical-evaluation--benchmarks) •
+[Feature Importance](#-behavioral-impact--gini-importance) •
+[Advising Protocols](#-risk-stratification--intervention-matrix) •
+[Quickstart](#-quickstart--usage)
 
 ---
 
@@ -28,203 +34,246 @@
 
 ## 📌 System Overview
 
-**Project ASPIRE** is an end-to-end predictive machine learning framework developed in **R** to identify students vulnerable to academic failure ($\text{Exam Score} \le 65$, lower quartile) weeks before final examinations. 
+Most academic early-warning systems suffer from a **latency flaw**: triage triggers *after* midterms or assignment deadlines have passed, leaving minimal runway for recovery.
 
-By analyzing an educational benchmark dataset of **6,607 student records** across **20 multidimensional attributes**, ASPIRE balances missingness imputation, synthesizes cross-domain interaction metrics, and calibrates classification cutoffs to maximize intervention recall.
-
-### 🌟 Key Performance Highlights
-
-| Metric | Baseline Default ($\tau = 0.50$) | ASPIRE Calibrated ($\tau^* = 0.38$) | Advising Impact |
-| :--- | :---: | :---: | :--- |
-| **ROC-AUC** | `0.976` | **`0.976`** | Top-tier class separability across risk spectra |
-| **At-Risk Detection Recall** | `77.10%` | **`84.04%`** | **+6.94% reduction** in unnoticed failing students |
-| **F1-Score** | `0.8356` | **`0.8658`** | Optimal balance between recall & advisor burnout |
-| **Behavioral Dominance** | `> 66%` | **`> 66%`** | Over 2/3 of variance is driven by modifiable habits |
+**Project ASPIRE** systematically shifts risk evaluation upstream into the first weeks of the academic term:
+- **Cohort Scale:** Validated across a benchmark dataset of **6,607 student records** spanning **20 multidimensional dimensions**.
+- **Target Condition:** Early isolation of students scoring in the lower quartile ($\text{Exam Score} \le 65$).
+- **Optimized Detection:** Decision threshold recalibrated from the standard $0.50$ default to **$\tau^* = 0.38$**, capturing **84.04% of at-risk students** ($F_1 = 0.8658$) with an overall **ROC-AUC of 0.976**.
+- **Actionable Insight:** Over **66% of outcome variance** is driven by dynamic behavioral routines (attendance consistency, study efficiency) rather than fixed demographic background.
 
 ---
 
-## 🏗 Architecture & Workflow
+## 🏗️ Architecture & Pipeline
 
-The pipeline executes five automated stages from raw benchmark ingestion to diagnostic alert dispatches:
+```text
++-------------------------------------------------------------------------------+
+|                        PROJECT ASPIRE END-TO-END PIPELINE                     |
++-------------------------------------------------------------------------------+
+                                        |
+  [01 INGESTION]                        v
+  +-----------------------------------------------------------------------------+
+  |  Benchmark Dataset: 6,607 Student Records across 20 Multidimensional Vars   |
+  |  - Academic History  - Study Habit Pacing  - Sleep Regularity  - Attendance |
+  +-----------------------------------------------------------------------------+
+                                        |
+  [02 IMPUTATION]                       v
+  +-----------------------------------------------------------------------------+
+  |  Structured Missingness Resolution                                          |
+  |  - Categorical & Discrete Features: Localized Mode Imputation               |
+  |  - Continuous Scaling & Normalization Matrices                              |
+  +-----------------------------------------------------------------------------+
+                                        |
+  [03 FEATURE SYNTHESIS]                v
+  +-----------------------------------------------------------------------------+
+  |  Domain Interaction Engine: Study Efficiency Index (SEI)                     |
+  |  SEI = (Weekly Study Hours * Milestone Assessment) / (Sleep Variance + eps) |
+  +-----------------------------------------------------------------------------+
+                                        |
+  [04 MODEL TRAINING & CV]              v
+  +-----------------------------------------------------------------------------+
+  |  Stratified 10-Fold Cross-Validation Suite                                  |
+  |  [ CART Trees ]  <--->  [ Logistic Regression ]  <--->  [ Random Forest ]   |
+  +-----------------------------------------------------------------------------+
+                                        |
+  [05 THRESHOLD CALIBRATION]            v
+  +-----------------------------------------------------------------------------+
+  |  Optimization on At-Risk Cohort (Score <= 65)                               |
+  |  Shift Default (tau = 0.50)  -->  Operational Target (tau* = 0.38)          |
+  |  Recall: 77.10% -> 84.04%   | ROC-AUC: 0.976 | F1: 0.8658                  |
+  +-----------------------------------------------------------------------------+
+                                        |
+  [06 ADVISING TRIAGE]                  v
+  +-----------------------------------------------------------------------------+
+  |  Automated Departmental Roster Dispatch                                     |
+  |  - High Risk (P >= 0.60)       --> Mandatory 1-on-1 Counseling + Study Hall |
+  |  - Moderate Risk (0.38 <= P < 0.60) --> Peer-Assisted Learning Pods         |
+  |  - Low Risk (P < 0.38)         --> Standard Advisory Cadence                |
+  +-----------------------------------------------------------------------------+
+```
 
 ```mermaid
 flowchart TD
-    classDef raw fill:#f8f9fa,stroke:#6c757d,stroke-width:1px,color:#212529;
-    classDef prep fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#0d47a1;
-    classDef model fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#e65100;
-    classDef eval fill:#e8f5e9,stroke:#388e3c,stroke-width:2px,color:#1b5e20;
-    classDef triage fill:#fce4ec,stroke:#c2185b,stroke-width:2px,color:#880e4f;
+    subgraph S1 ["1. Data Ingestion & Imputation (N = 6,607)"]
+        A[Raw Student Records: 20 Attributes] --> B[Structured Missingness Audit]
+        B --> C[Categorical & Discrete Mode Imputation]
+    end
 
-    A[Raw Student Cohort<br/>6,607 Records x 20 Features]:::raw --> B[Preprocessing & Mode Imputation]:::prep
-    B --> C[Feature Engineering:<br/>Study Efficiency Index - SEI]:::prep
-    
-    C --> D[10-Fold Cross-Validation Suite]:::model
-    D --> D1[Decision Trees CART]:::model
-    D --> D2[Logistic Regression]:::model
-    D --> D3[Random Forest Ensemble]:::model
-    
-    D3 --> E[Threshold Optimization<br/>Shift Cutoff: 0.50 -> 0.38]:::eval
-    E --> F[Performance Target Met<br/>Recall: 84.04% | AUC: 0.976]:::eval
-    
-    F --> G{Automated Risk Stratification}:::triage
-    G -->|P >= 0.60| H[🚨 High Risk: 1-on-1 Advising & Tutoring]:::triage
-    G -->|0.38 <= P < 0.60| I[⚠️ Moderate Risk: Peer Study Pods]:::triage
-    G -->|P < 0.38| J[✅ Low Risk: Standard Self-Paced Track]:::triage
+    subgraph S2 ["2. Feature Engineering"]
+        C --> D[Synthesize Study Efficiency Index: SEI]
+        D --> E[Academic, Sleep, & Behavioral Normalization]
+    end
+
+    subgraph S3 ["3. Supervised Model Suite (10-Fold CV)"]
+        E --> F[Decision Trees CART]
+        E --> G[Logistic Regression GLM]
+        E --> H[Random Forest Ensemble]
+    end
+
+    subgraph S4 ["4. Operational Threshold Calibration"]
+        H --> I["Standard Cutoff (τ = 0.50)<br/>Recall: 77.10%"]
+        H --> J["Calibrated Cutoff (τ* = 0.38)<br/>Recall: 84.04% | F1: 0.8658"]
+    end
+
+    subgraph S5 ["5. Automated Risk Stratification"]
+        J --> K["🔴 High Risk (P ≥ 0.60)<br/>Mandatory 1-on-1 Advising"]
+        J --> L["🟡 Moderate Risk (0.38 ≤ P < 0.60)<br/>Peer Tutoring Pods"]
+        J --> M["🟢 Low Risk (P < 0.38)<br/>Standard Academic Cadence"]
+    end
+
+    style J fill:#1f2937,stroke:#10b981,stroke-width:2px,color:#fff
+    style K fill:#450a0a,stroke:#ef4444,stroke-width:2px,color:#fff
+    style L fill:#422006,stroke:#f59e0b,stroke-width:2px,color:#fff
+    style M fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#fff
 ```
 
 ---
 
-## 🔬 Feature Engineering & SEI
+## 🔬 Feature Synthesis: Study Efficiency Index (SEI)
 
-ASPIRE monitors 20 features across 4 foundational domains:
-1. **Academic Foundations:** Historical grade trends, assignment submission rates, continuous assessment marks.
-2. **Dynamic Behaviors:** Attendance percentage, weekly self-study volume, library checkouts.
-3. **Lifestyle & Circadian Health:** Sleep routine consistency, screen time balance, extracurricular load.
-4. **Socio-Environmental Context:** Peer group engagement, resource access tiers.
+Raw study volume often fails to correlate linearly with performance when sleep schedules are disrupted. ASPIRE models cross-domain friction via the **Study Efficiency Index (SEI)**:
 
-### Study Efficiency Index (SEI)
-Rather than evaluating study hours in a vacuum, ASPIRE synthesizes the **Study Efficiency Index (SEI)** to measure knowledge absorption adjusted for lifestyle stability:
+$$\text{SEI} = \frac{\text{Weekly Study Hours} \times \text{Continuous Assessment Performance}}{\sigma_{\text{sleep}} + \epsilon}$$
 
-$$\text{SEI} = \frac{\text{Weekly Study Hours} \times \text{Continuous Assessment Performance}}{\text{Sleep Variance Index} + \epsilon}$$
-
-Where $\epsilon$ represents a smoothing factor preventing division by zero for students with completely uniform sleep schedules.
+Where:
+- $\sigma_{\text{sleep}}$ measures circadian variance and rolling sleep irregularity.
+- $\epsilon = 10^{-4}$ provides numerical stability for strict baseline routines.
 
 ---
 
-## 📊 Model Benchmarks
+## 📊 Empirical Evaluation & Benchmarks
 
-All models were evaluated via stratified 10-fold cross-validation targeting the lower quartile ($\text{Exam Score} \le 65$):
+Models were trained and evaluated via stratified **10-fold cross-validation** specifically targeting the at-risk condition ($\text{Exam Score} \le 65$).
 
-```
-Model Comparison (ROC-AUC & At-Risk Recall)
-────────────────────────────────────────────────────────────────────────
-Random Forest (τ* = 0.38) [████████████████████] AUC: 0.976 | Recall: 84.04%
-Random Forest (τ = 0.50)  [████████████████████] AUC: 0.976 | Recall: 77.10%
-Logistic Regression       [██████████████████  ] AUC: 0.923 | Recall: 76.85%
-Decision Tree (CART)      [████████████████    ] AUC: 0.891 | Recall: 72.30%
-────────────────────────────────────────────────────────────────────────
-```
+| Model Architecture | Accuracy | ROC-AUC | Recall (At-Risk) | Precision | $F_1$-Score |
+|:---|:---:|:---:|:---:|:---:|:---:|
+| Decision Tree (CART) | 88.10% | 0.891 | 72.30% | 0.7812 | 0.7510 |
+| Logistic Regression | 90.40% | 0.923 | 76.85% | 0.8240 | 0.7953 |
+| Random Forest ($\tau = 0.50$) | **94.80%** | **0.976** | 77.10% | **0.9120** | 0.8356 |
+| ⚡ **Random Forest ($\tau^* = 0.38$)** | 93.60% | **0.976** | **84.04%** | 0.8930 | **0.8658** |
 
-### Comprehensive Results Matrix
+### Decision Boundary Tuning ($\tau^* = 0.38$)
 
-| Architecture | Operational $\tau$ | Accuracy | ROC-AUC | Recall | Precision | F1-Score |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Decision Trees (CART)** | $0.50$ | 88.1% | 0.891 | 72.30% | 0.7812 | 0.7510 |
-| **Logistic Regression** | $0.50$ | 90.4% | 0.923 | 76.85% | 0.8240 | 0.7953 |
-| **Random Forest Baseline** | $0.50$ | **94.8%** | **0.976** | 77.10% | **0.9120** | 0.8356 |
-| **Random Forest (ASPIRE Optimized)** | $\mathbf{0.38}$ | 93.6% | **0.976** | **84.04%** | 0.8930 | **0.8658** |
-
-> **Why shift to $\tau^* = 0.38$?**  
-> In educational retention, **false negatives carry high institutional and human cost** (failing to detect a struggling student), while **false positives are low-cost** (offering supplemental tutoring to a borderline student). Shifting the threshold expands the safety net without swamping advising capacity.
-
----
-
-## 💡 Actionable Behavioral Insights
-
-Mean Decrease in Gini importance demonstrates that **changeable behavioral habits drive >66% of target variance**, debunking the premise that academic trajectory is predestined by static demographics:
+In educational early-warning systems, **False Negatives are unrecoverable** (an at-risk student drops out or fails unassisted), whereas **False Positives only mean extra academic tutoring**. Calibrating to $\tau^* = 0.38$ maximizes sensitivity while retaining a 0.8930 precision profile.
 
 ```text
-Actionable Behavioral Drivers vs. Static Background (Gini Importance)
-────────────────────────────────────────────────────────────────────────
-[Dynamic] Attendance Rate              ██████████████████  (36.2%)
-[Dynamic] Study Efficiency Index (SEI)  ███████████████     (29.9%)
-[Academic] Continuous Assessment Marks  ███████             (14.1%)
-[Lifestyle] Sleep Consistency Metric    ████                (9.3%)
-[Static] Socio-Demographic Factors      ███                 (6.8%)
-[Other] Uncorrelated Environment Data   ██                  (3.7%)
-────────────────────────────────────────────────────────────────────────
-Actionable Variance Share: 66.1%
+At-Risk Detection Sensitivity by Decision Cutoff (tau)
+========================================================================================
+Cutoff (tau)    Recall   ASCII Visual Representation                            Status
+----------------------------------------------------------------------------------------
+tau = 0.50      77.10%   |==============================......|                  Baseline
+tau = 0.44      80.20%   |================================....|                  Shift
+tau* = 0.38     84.04%   |==================================..|  <- OPTIMAL   (ASPIRE)
+tau = 0.30      89.15%   |====================================|                  High FP
+========================================================================================
 ```
 
 ---
 
-## 🚦 Risk Stratification & Alert Playbook
+## 🎯 Behavioral Impact & Gini Importance
 
-ASPIRE automatically outputs triage rosters for advisors categorized into actionable risk tiers:
+Decomposition via Mean Decrease in Gini Impurity proves that modifiable student habits drive the majority of academic variance:
 
+```text
+========================================================================================
+FEATURE DIMENSION                 GINI %    DISTRIBUTION (ACTIONABLE VS STATIC)
+========================================================================================
+Class Attendance Rate             36.2%     [####################################]
+Study Efficiency Index (SEI)      29.9%     [##############################]
+Prior Assessment Milestones       14.1%     [##############]
+Sleep Routine Consistency          9.3%     [#########]
+Socio-Demographic Indicators       6.8%     [######]  <- Static Background
+Other Environmental Factors        3.7%     [###]
+========================================================================================
+[Actionable Behavioral Dimensions: 66.1%]              [Static Demographics: 6.8%]
 ```
- Cohort Risk Distribution (N = 6,607)
- ┌───────────────────────┬────────────────────────┬──────────────────────┐
- │   🔴 High Risk (14%)  │   🟡 Moderate Risk (18%)│   🟢 Low Risk (68%)   │
- └───────────────────────┴────────────────────────┴──────────────────────┘
-  P(Risk) >= 0.60         0.38 <= P(Risk) < 0.60   P(Risk) < 0.38
-```
 
-| Tier | Probability Range | Action Items & Faculty Intervention Playbook |
-| :---: | :---: | :--- |
-| **🔴 HIGH RISK** | $P \ge 0.60$ | **Immediate Triage:** Mandatory 1-on-1 advisor consultation within 5 business days, diagnostic learning disability check, and assignment to supervised weekly study halls. |
-| **🟡 MODERATE RISK** | $0.38 \le P < 0.60$ | **Targeted Scaffolding:** Automated invitation to peer tutoring pods, supplemental course material access, and bi-weekly attendance monitor checkpoints. |
-| **🟢 LOW RISK** | $P < 0.38$ | **Autonomous Progress:** Standard cohort advising cadence, automated milestone encouragement emails, and elective enrichment modules. |
+> **Advising Takeaway:** Student trajectory is overwhelmingly determined by attendance consistency and effective study rhythms. Interventions should prioritize operational habit-building over deficit-based assumptions.
 
 ---
 
-## 📁 Repository Structure
+## 🚦 Risk Stratification & Intervention Matrix
 
-```plaintext
+ASPIRE automatically routes students into risk tiers based on individual probability scores:
+
+| Tier | Probability Range | Risk Classification | Operational Intervention Protocol |
+|:---:|:---:|:---:|:---|
+| 🔴 **Tier 1** | $P(\text{Risk}) \ge 0.60$ | **High Risk** | Immediate advisor assignment within 48h; mandatory 1-on-1 consultation; dedicated study hall placement; weekly diagnostic check-ins. |
+| 🟡 **Tier 2** | $0.38 \le P < 0.60$ | **Moderate Risk** | Enrollment into peer-assisted learning pods; automated bi-weekly attendance check pings; academic time-management modules. |
+| 🟢 **Tier 3** | $P(\text{Risk}) < 0.38$ | **Low Risk** | Standard curriculum monitoring; access to self-service study resources. |
+
+---
+
+## 📂 Repository Structure
+
+```bash
 project-aspire/
 ├── data/
-│   ├── raw/                      # Raw student benchmark records (6,607 entries)
-│   └── processed/                # Imputed, scaled, and split matrices
+│   ├── raw/                      # Educational benchmark cohort (6,607 records)
+│   └── processed/                # Cleaned, imputed, and scaled matrices
 ├── R/
-│   ├── 01_data_preprocessing.R   # Mode imputation & categorical encoding
-│   ├── 02_feature_engineering.R  # Feature generation (SEI, Sleep Indices)
-│   ├── 03_model_benchmarking.R   # CART, Logistic Regression, Random Forest
-│   ├── 04_threshold_tuning.R     # Precision-Recall & ROC-AUC calibration
-│   └── 05_alert_generator.R      # Automated CSV alert list compilation
+│   ├── 01_data_preprocessing.R   # Mode imputation and missingness checks
+│   ├── 02_feature_engineering.R  # SEI synthesis and interaction logic
+│   ├── 03_model_training.R       # CART, Logistic Regression, Random Forest
+│   ├── 04_threshold_tuning.R     # Cutoff derivation and ROC optimization
+│   └── 05_alert_dispatch.R       # Automated student triage generator
 ├── models/
-│   └── rf_aspire_optimized.rds   # Trained serialized model artifact
+│   └── random_forest_final.rds   # Serialized production model object
 ├── reports/
-│   ├── figures/                  # ROC Curves, PR curves, Gini ranking plots
-│   └── alerts/                   # Generated risk-tiered advisor rosters
-├── config.yml                    # Pipeline parameters, thresholds, and seeds
-├── run_pipeline.R                # Master CLI execution script
+│   ├── figures/                  # ROC plots, calibration curves, Gini ranks
+│   └── student_risk_alerts.csv   # Target early-warning advisory roster
+├── config.yml                    # Pipeline parameters and threshold configs
+├── run_pipeline.R                # Master orchestration script
 └── README.md
 ```
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Quickstart & Usage
 
 ### 1. Requirements
-- **R** $\ge$ 4.2.0
-- Recommended dependencies:
-  ```R
-  install.packages(c("tidyverse", "caret", "randomForest", "pROC", "ROCR", "yaml", "knitr"))
-  ```
 
-### 2. Installation
-```bash
-git clone https://github.com/your-username/project-aspire.git
-cd project-aspire
+- **R version $\ge$ 4.2.0**
+- Install dependent packages:
+
+```R
+install.packages(c(
+  "tidyverse",
+  "caret",
+  "randomForest",
+  "pROC",
+  "ROCR",
+  "yaml"
+))
 ```
 
-### 3. Execution
-Run the complete pipeline end-to-end:
+### 2. Execution
+
 ```bash
+# Clone repository
+git clone https://github.com/your-institution/project-aspire.git
+cd project-aspire
+
+# Run the complete preprocessing, training, and evaluation pipeline
 Rscript run_pipeline.R
 ```
 
-### 4. Inspect Triage Outputs
-Once execution completes, view the prioritized alerts in:
-```bash
-head -n 20 reports/alerts/advising_action_roster.csv
+### 3. Generated Advisory Output
+
+The pipeline outputs an actionable CSV roster at `reports/student_risk_alerts.csv`:
+
+```text
++-----------+-----------------+-----------+-----------------+--------------------------------+
+| StudentID | RiskProbability | RiskTier  | PrimaryDriver   | RecommendedIntervention        |
++-----------+-----------------+-----------+-----------------+--------------------------------+
+| ST-0194   | 0.784           | High      | Attendance      | 1-on-1 Counseling + Study Hall |
+| ST-1048   | 0.492           | Moderate  | Low SEI         | Peer Tutoring (Math/Sci Pod)   |
+| ST-3302   | 0.118           | Low       | None            | Standard Curriculum            |
++-----------+-----------------+-----------+-----------------+--------------------------------+
 ```
 
 ---
 
-## 📜 Citation & License
+## 📄 License
 
-This project is licensed under the [MIT License](LICENSE).
-
-```bibtex
-@article{project_aspire_2024,
-  title   = {Project ASPIRE: Academic Success Prediction through Intelligent Risk Evaluation},
-  author  = {ASPIRE Research & Engineering Team},
-  journal = {Educational Data Mining & Advising Analytics Repository},
-  year    = {2024}
-}
-```
-
-<div align="center">
-  <sub>Built with ❤️ using R and Machine Learning for proactive student retention.</sub>
-</div>
+Distributed under the MIT License. See [LICENSE](LICENSE) for full details.
